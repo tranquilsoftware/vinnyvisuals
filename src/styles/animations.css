@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes subtle-pulse {
+    0%, 100% { 
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 0.7;
+      transform: scale(1.05);
+    }
+  }
+  
+  .pulse-slow {
+    animation: subtle-pulse 4s ease-in-out infinite;
+  }
+  
+  .pulse-medium {
+    animation: subtle-pulse 3s ease-in-out infinite;
+  }
+  
+
+
+
+  /* SkewedTransitiont.tsx */
+  @keyframes skew-slide {
+    0% {
+      transform: translateY(100%) skewY(3deg);
+    }
+    100% {
+      transform: translateY(0) skewY(3deg);
+    }
+  }
+  
+  .skew-transition {
+    animation: skew-slide 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  

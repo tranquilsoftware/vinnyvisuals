@@ -1,0 +1,15 @@
+@font-face { /* cursive nature beauty https://www.fontspace.com/nature-beauty-font-f84834 */
+    font-family: 'Cursive';
+    src: url('/assets/fonts/NatureBeautyPersonalUse-9Y2DK.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face { /* cursive ananda https://www.fontspace.com/ananda-black-font-f85089 */
+    font-family: 'AnandaBlack';
+    src: url('/assets/fonts/AnandaBlackPersonalUseRegular-rg9Rx.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }

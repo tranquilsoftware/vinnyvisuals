@@ -1,0 +1,66 @@
+@keyframes twinkle {
+    0%, 100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  
+  /* @keyframes diagonalGradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  } */
+  
+  .animated-background {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    pointer-events: none;
+  }
+  
+  .background-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(45deg, #1a1a2e, #162e3e, #041a19, #163e2d); */
+    /* background: linear-gradient(45deg, #121d1b, #0a1b19, #041a0c, #293e16); */
+
+    background-size: 400% 400%;
+    z-index: -99;
+    pointer-events: none;
+  }
+  
+  .stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -98;
+  }
+  
+  .star {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: twinkle ease-in-out infinite;
+  }
+  
+  .content-container {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
