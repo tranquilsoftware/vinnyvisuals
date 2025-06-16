@@ -1,5 +1,5 @@
 import { Instagram, Facebook, Mail, Menu, X } from 'lucide-react';
-import { OWNER_NAME, INSTAGRAM_LINK, FACEBOOK_LINK, CONTACT_QUOTE_EMAIL } from '../globals';
+import { INSTAGRAM_LINK, FACEBOOK_LINK, CONTACT_QUOTE_EMAIL, BRAND_NAME } from '../globals';
 
 interface NavbarProps {
   isMobileView: boolean;
@@ -8,6 +8,8 @@ interface NavbarProps {
   onMenuToggle: () => void;
   onNavClick: (sectionId: string) => void;
   navItems: Array<{ id: string; label: string }>;
+  isVisible: boolean;
+  isInitialLoad: boolean;
 }
 
 export function Navbar({
@@ -16,41 +18,75 @@ export function Navbar({
   activeSection,
   onMenuToggle,
   onNavClick,
-  navItems
+  navItems,
+  isVisible,
+  isInitialLoad
 }: NavbarProps) {
   return (
-    <>
-      {/* Mobile Menu Button - Only shows on mobile/portrait */}
-      {isMobileView && (
-        <button 
-          onClick={onMenuToggle}
-          className="fixed top-4 right-4 z-50 p-2 rounded-md text-content-primary hover:text-content-white hover:bg-background-light focus:outline-none focus:ring-2 focus:ring-primary"
-          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      )}
-
-      {/* Sidebar - Responsive behavior */}
-      <div 
-        className={`fixed inset-y-0 left-0 z-40 ${
-          isMobileView ? 'w-64' : 'w-1/5'
-        } transform transition-transform duration-300 ease-in-out ${
-          isMobileView && !isMobileMenuOpen ? '-translate-x-full' : 'translate-x-0'
-        } bg-background-dark bg-opacity-90 backdrop-blur-sm border-r border-border-dark flex flex-col justify-between p-4 lg:p-8`}
-      >
-        <div>
-          <h1 className="text-4xl font-bold mb-2" style={{ fontFamily: 'AnandaBlack' }}>
-            {OWNER_NAME}
-          </h1>
-          <p className="text-gray-400 mb-12">Artist & Creator</p>
-          
-          <nav className="space-y-4">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 bg-background-dark/90 backdrop-blur-sm border-b border-border-dark transition-transform duration-300 ease-in-out ${
+        isVisible || isInitialLoad ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
+      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        <h1 className="text-2xl font-bold" style={{ fontFamily: 'AnandaBlack' }}>
+          {BRAND_NAME}
+        </h1>
+        
+        {/* Desktop Navigation */}
+        {!isMobileView && (
+          <nav className="flex items-center space-x-6">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => onNavClick(item.id)}
-                className={`block w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeSection === item.id 
+                    ? 'text-content-white bg-primary-dark' 
+                    : 'text-content-primary hover:bg-background-secondary hover:text-content-white'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            <div className="flex space-x-4 ml-4">
+              <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="text-content-muted hover:text-content-white">
+                <Instagram size={20} />
+              </a>
+              <a href={FACEBOOK_LINK} target="_blank" rel="noopener noreferrer" className="text-content-muted hover:text-content-white">
+                <Facebook size={20} />
+              </a>
+              <a href={`mailto:${CONTACT_QUOTE_EMAIL}`} className="text-content-muted hover:text-content-white">
+                <Mail size={20} />
+              </a>
+            </div>
+          </nav>
+        )}
+
+        {/* Mobile Menu Button */}
+        {isMobileView && (
+          <button 
+            onClick={onMenuToggle}
+            className="p-2 rounded-md text-content-primary hover:text-content-white hover:bg-background-light focus:outline-none"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        )}
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileView && isMobileMenuOpen && (
+        <div className="bg-background-dark border-t border-border-dark">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  onNavClick(item.id);
+                  onMenuToggle();
+                }}
+                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium ${
                   activeSection === item.id 
                     ? 'bg-primary-dark text-content-white' 
                     : 'text-content-primary hover:bg-background-secondary hover:text-content-white'
@@ -59,42 +95,20 @@ export function Navbar({
                 {item.label}
               </button>
             ))}
-          </nav>
-        </div>
-
-        <div className="mt-auto pt-6">
-          <div className="flex space-x-4">
-            <a 
-              href={INSTAGRAM_LINK} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-content-muted hover:text-content-white transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram size={24} />
-            </a>
-            <a 
-              href={FACEBOOK_LINK} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-content-muted hover:text-content-white transition-colors"
-              aria-label="Facebook"
-            >
-              <Facebook size={24} />
-            </a>
-            <a 
-              href={`mailto:${CONTACT_QUOTE_EMAIL}`}
-              className="text-content-muted hover:text-content-white transition-colors"
-              aria-label="Email"
-            >
-              <Mail size={24} />
-            </a>
+            <div className="flex justify-center space-x-6 py-4">
+              <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="text-content-muted hover:text-content-white">
+                <Instagram size={24} />
+              </a>
+              <a href={FACEBOOK_LINK} target="_blank" rel="noopener noreferrer" className="text-content-muted hover:text-content-white">
+                <Facebook size={24} />
+              </a>
+              <a href={`mailto:${CONTACT_QUOTE_EMAIL}`} className="text-content-muted hover:text-content-white">
+                <Mail size={24} />
+              </a>
+            </div>
           </div>
-          {/* <p className="mt-4 text-sm text-content-muted">
-            &copy; {new Date().getFullYear()} {OWNER_NAME}. All rights reserved.
-          </p> */}
         </div>
-      </div>
-    </>
+      )}
+    </header>
   );
 }

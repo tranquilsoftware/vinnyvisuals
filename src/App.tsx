@@ -3,12 +3,6 @@ import './App.css';
 import Portfolio from './components/Portfolio';
 import { HeroCard } from './components/HeroCard';
 import { Navbar } from './components/Navbar';
-
-// import AnimatedBackground from './components/animations/AnimatedBackground';
-// import { PulsatingThing } from './components/animations/PulsatingThing';
-// import RotatingImageBackground from './components/animations/RotatingImageBackground';
-// import { BG_IMG } from './globals';
-
 import AboutMe from './components/AboutMe';
 import ThreeJsStars from './components/animations/threeJsStars';
 
@@ -16,38 +10,58 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
 
-  // Set up intersection observer for scroll-based active section
+  // Handle scroll to show/hide navbar
   useEffect(() => {
-    const sections = document.querySelectorAll('section[id]');
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.5 // Trigger when 50% of the section is visible
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      
+      // Show header when scrolling up or at top
+      const shouldBeVisible = prevScrollPos > currentScrollPos || currentScrollPos < 10;
+      
+      if (shouldBeVisible !== isVisible) {
+        setIsVisible(shouldBeVisible);
+      }
+      
+      setPrevScrollPos(currentScrollPos);
+      
+      // Set isInitialLoad to false after the first scroll
+      if (isInitialLoad) {
+        setIsInitialLoad(false);
+      }
+      
+      // Update active section based on scroll position
+      const sections = ['home', 'about', 'portfolio'];
+      const scrollPosition = currentScrollPos + 100; // Add offset for header
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
         }
-      });
-    }, observerOptions);
-
-    // Observe each section
-    sections.forEach(section => {
-      observer.observe(section);
-    });
-
-    // Cleanup
-    return () => {
-      sections.forEach(section => {
-        observer.unobserve(section);
-      });
+      }
     };
-  }, []);
 
-  // Check if we're in mobile view (width < 1024px or portrait mode)
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial check
+    handleScroll();
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isVisible, prevScrollPos, isInitialLoad]);
+
+  // Check if we're in mobile view
   useEffect(() => {
     const checkMobileView = () => {
       const isPortrait = window.innerHeight > window.innerWidth;
@@ -97,27 +111,11 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen text-content-white flex">
-    {/* Three.js Background - Moved to root level */}
-    <ThreeJsStars className="fixed inset-0" />
+    <div className="min-h-screen text-content-white">
+      {/* Three.js Background */}
+      <ThreeJsStars className="fixed inset-0 -z-10" />
 
-      {/* Animated Background */}
-      {/* <div className="fixed inset-0 z-0 w-full h-full">
-        <RotatingImageBackground 
-          image={BG_IMG}
-          imageCount={25}
-          minSize={22}
-          maxSize={77}
-          minOpacity={0.01}
-          maxOpacity={0.15}
-          minSpeed={10}
-          maxSpeed={100}
-        />
-      </div> */}
-
-      {/* <PulsatingThing /> */}
-
-
+      {/* Navbar */}
       <Navbar
         isMobileView={isMobileView}
         isMobileMenuOpen={isMobileMenuOpen}
@@ -125,37 +123,29 @@ function App() {
         onMenuToggle={toggleMobileMenu}
         onNavClick={scrollToSection}
         navItems={navItems}
+        isVisible={isVisible}
+        isInitialLoad={isInitialLoad}
       />
 
+      {/* Main Content */}
+      <main>
+        {/* Home Section */}
+        <section id="home" className="min-h-screen flex items-center justify-center p-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <HeroCard />
+          </div>
+        </section>
 
-      {/* Main Content - Responsive width */}
-      <div className={`transition-all duration-300 ${
-        isMobileView ? 'w-full' : 'w-4/5 ml-auto'
-      }`}>  
-        <main className="min-h-screen">
-
-          {/* Home Section */}
-          <section id="home" className="min-h-screen flex items-center justify-center p-8">
-            <div className="max-w-3xl mx-auto text-center">
-              <HeroCard />
-            </div>
-          </section>
-
-          
-          {/* Team Section */}
-          <section id="about" className="py-20 px-8">
-            <AboutMe />
-          </section>
-
-          {/* Portfolio Section */}
-          <section id="portfolio" className="min-h-screen py-20 px-8">
-            <Portfolio />
-          </section>
-
-
-
-        </main>
-      </div>
+        {/* About Section */}
+        <section id="about" className="py-20 px-8">
+          <AboutMe />
+        </section>
+        
+        {/* Portfolio Section */}
+        <section id="portfolio" className="min-h-screen py-20 px-8">
+          <Portfolio />
+        </section>
+      </main>
     </div>
   );
 }
