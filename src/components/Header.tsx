@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { Button } from "./ui/Button"
 import { useLocation, useNavigate } from 'react-router-dom'
-import { HREF_PRODUCT_LINK, HREF_HOME_LINK, BRAND_NAME } from '../globals'
+import { HREF_HOME_LINK, BRAND_NAME } from '../globals'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -15,7 +15,6 @@ export default function Header() {
 
   const menuItems = [
     { name: 'Lookbook', href: '#lookbook' }, 
-    { name: 'Shop', href: HREF_PRODUCT_LINK },
   ]
 
   const isActive = (href: string) => {

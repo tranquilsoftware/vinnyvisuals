@@ -4,7 +4,9 @@ import Portfolio from './components/Portfolio';
 import { HeroCard } from './components/HeroCard';
 import { Navbar } from './components/Navbar';
 import AboutMe from './components/AboutMe';
-import ThreeJsStars from './components/animations/threeJsStars';
+import RotatingImageBackground from './components/animations/RotatingImageBackground';
+import { LOGO } from './globals';
+import Footer from './components/Footer';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -111,9 +113,8 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen text-content-white">
-      {/* Three.js Background */}
-      <ThreeJsStars className="fixed inset-0 -z-10" />
+    <div className="min-h-screen text-content-white bg-background-dark/90">
+      <RotatingImageBackground image={LOGO} />
 
       {/* Navbar */}
       <Navbar
@@ -145,6 +146,9 @@ function App() {
         <section id="portfolio" className="min-h-screen py-20 px-8">
           <Portfolio />
         </section>
+
+        {/* Footer */}
+        {/* <Footer /> */}
       </main>
     </div>
   );

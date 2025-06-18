@@ -26,22 +26,7 @@ const Footer = () => {
             <p className="mt-2 text-sm text-content-white w-full max-w-md mx-auto md:mx-0">
               {BRIEF_DESCRIPTION}
             </p>
-            {/* <div className="flex space-x-4 mt-4">
-              <a 
-                href={INSTAGRAM_LINK} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-content-secondary hover:text-primary transition-colors"
-              > 
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a 
-                href={`mailto:${CONTACT_QUOTE_EMAIL}`}
-                className="text-content-secondary hover:text-primary transition-colors"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-            </div> */}
+
           </div>
         </div>
 
@@ -55,11 +40,7 @@ const Footer = () => {
                   Home
                 </Link>
               </li>
-              <li className="mb-2">
-                <Link to={HREF_PRODUCT_LINK} className="hover:text-primary transition-colors text-content-white">
-                  Products
-                </Link>
-              </li>
+
             </nav>
           </div>
 
@@ -86,10 +67,7 @@ const Footer = () => {
                   {CONTACT_QUOTE_EMAIL}
                 </a>
               </li>
-              <li className="flex items-start justify-center md:justify-start">
-                <Clock className="w-4 h-4 mt-0.5 mr-2 text-primary flex-shrink-0" />
-                <span className="text-content-white">{AVAILABILITY}</span>
-              </li>
+
             </nav>
           </div>
         </div>

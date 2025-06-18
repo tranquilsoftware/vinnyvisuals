@@ -1,8 +1,8 @@
 /// BRAND
-export const BRAND_NAME = "Vinny's Visuals"
+export const BRAND_NAME = "Your Brand Name"
 export const FONT_BRAND_NAME = BRAND_NAME.toUpperCase()
 
-export const OWNER_NAME = 'Vinny'
+export const OWNER_NAME = 'Your Name Here'
 export const BRIEF_DESCRIPTION = 'A collection of artwork created by me!'
 // export const ABOUT_ME_DESC = 'My name is ' + OWNER_NAME + '. I am an artist, and I like making art!'
 export const ABOUT_ME_DESC = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
@@ -13,16 +13,13 @@ export const SMALL_LOGO = 'https://i.imgur.com/CdnTZ20.png'; // 128x128 see view
 
 
 // contact details
-export const AVAILABILITY = 'Mon-Fri: 9am - 5pm AEST' // used in footer
-export const CONTACT_QUOTE_EMAIL = 'email@gmail.com'; // used in footer
-export const INSTAGRAM_LINK = "https://www.instagram.com/instagram/";
-export const FACEBOOK_LINK = "https://www.facebook.com/fb/";
+export const CONTACT_QUOTE_EMAIL = 'email@gmail.com';
+export const INSTAGRAM_LINK = "https://www.instagram.com/tranquilsoftware/";
+export const FACEBOOK_LINK = "https://www.facebook.com/tranquilsoftware/";
 
 // href links
-export const HREF_HOME_LINK = 'https://tranquilsoftware.github.io/vinnyvisuals/'; // todo change in prod
-export const HREF_PRODUCT_LINK = 'https://www.google.com/'; // squarespace or shopify
+export const HREF_HOME_LINK = 'https://tranquilsoftware.github.io/minimal-art-portfolio/';
 export const TRANQUILSOFTWARE_LINK = 'https://tranquilsoftware.com/'
 
 // owner details
-export const OWNER_PIC = './assets/images/me.png' //LOGO; // 128x128 see views: https://imgur.com/a/ZpAPk1B
-export const BG_IMG = LOGO; // 128x128 see views: https://imgur.com/a/ZpAPk1B
+export const OWNER_PIC = './assets/images/me.png'

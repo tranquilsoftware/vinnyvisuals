@@ -17,6 +17,6 @@ export const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/vinnyvisuals/'
+    basename: '/minimal-art-portfolio/'
   }
 );
